@@ -1,0 +1,54 @@
+import tkinter as tk
+
+def calculate():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        operator = operator_var.get()
+        
+        if operator == '+':
+            result = num1 + num2
+        elif operator == '-':
+            result = num1 - num2
+        elif operator == '*':
+            result = num1 * num2
+        elif operator == '/':
+            if num2 == 0:
+                result = "Error: Division by zero"
+            else:
+                result = num1 / num2
+        else:
+            result = "Error: Invalid operator"
+            
+        label_result.config(text="Result: " + str(result))
+    except ValueError:
+        label_result.config(text="Error: Invalid input")
+
+# Create main window
+window = tk.Tk()
+window.title("Simple Calculator")
+
+# Create entry widgets for numeric input
+entry_num1 = tk.Entry(window)
+entry_num1.grid(row=0, column=0, padx=5, pady=5)
+
+entry_num2 = tk.Entry(window)
+entry_num2.grid(row=0, column=1, padx=5, pady=5)
+
+# Create dropdown menu for selecting operator
+operator_var = tk.StringVar(window)
+operator_var.set('+')  # default value
+
+operator_menu = tk.OptionMenu(window, operator_var, '+', '-', '*', '/')
+operator_menu.grid(row=0, column=2, padx=5, pady=5)
+
+# Create button for calculation
+calculate_button = tk.Button(window, text="Calculate", command=calculate)
+calculate_button.grid(row=1, column=0, columnspan=3, padx=5, pady=5, sticky="we")
+
+# Create label for displaying result
+label_result = tk.Label(window, text="Result: ")
+label_result.grid(row=2, column=0, columnspan=3, padx=5, pady=5)
+
+# Run the application
+window.mainloop()
